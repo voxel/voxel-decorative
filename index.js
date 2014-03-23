@@ -7,7 +7,10 @@ module.exports = function(game, opts) {
 };
 
 module.exports.pluginInfo = {
-  loadAfter: ['voxel-registry', 'voxel-land', 'voxel-recipes']
+  loadAfter: [
+    'voxel-registry', 
+    'voxel-land', // for materials
+    'voxel-recipes']
 };
 
 function DecorativePlugin(game, opts) {
@@ -44,13 +47,21 @@ DecorativePlugin.prototype.enable = function() {
     recipes.registerAmorphous(['block' + ucfirst(name)], [baseMaterial, 9]);
   });
 
-  // stone bricks
-  this.registry.registerBlock('stoneBrick', {texture: 'stonebrick', displayName: 'Stone Bricks'});
-  this.registry.registerBlock('stoneBrickCarved', {texture: 'stonebrick_carved', displayName: 'Carved Stone Bricks'});
-  this.registry.registerBlock('stoneBrickCracked', {texture: 'stonebrick_cracked', displayName: 'Cracked Stone Bricks'});
-  this.registry.registerBlock('stoneBrickMossy', {texture: 'stonebrick_mossy', displayName: 'Mossy Stone Bricks'});
+  // TODO: set more block properties; increase hardness
 
-  // TODO: recipes
+  // stone bricks
+  registry.registerBlock('stoneBrick', {texture: 'stonebrick', displayName: 'Stone Bricks'});
+  registry.registerBlock('stoneBrickCarved', {texture: 'stonebrick_carved', displayName: 'Carved Stone Bricks'});
+  registry.registerBlock('stoneBrickCracked', {texture: 'stonebrick_cracked', displayName: 'Cracked Stone Bricks'});
+  registry.registerBlock('stoneBrickMossy', {texture: 'stonebrick_mossy', displayName: 'Mossy Stone Bricks'}); // TODO: recipe (+vines?)
+
+  recipes.registerPositional([
+      ['stone', 'stone'],
+      ['stone', 'stone']], ['stoneBrick']);
+
+  recipes.registerAmorphous(['stoneBrick'], ['stoneBrickCarved']); // TODO: maybe require using on a chisel?
+  recipes.registerAmorphous(['stoneBrickCarved'], ['stoneBrickCracked']);
+  //recipes.registerAmorphous(['stoneBrickCracked', ['stoneBrick']);
 };
 
 DecorativePlugin.prototype.disable = function() {
