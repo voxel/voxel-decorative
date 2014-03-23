@@ -34,6 +34,7 @@ DecorativePlugin.prototype.enable = function() {
 
   // "storage" blocks
   this.storageMaterials.forEach(function(name) {
+    var baseMaterial = self.storageBases[name] || name;
     var baseHardness = registry.getProp('ore' + ucfirst(baseMaterial), 'hardness') || 20.0;
 
     registry.registerBlock('block' + ucfirst(name), {
@@ -41,8 +42,6 @@ DecorativePlugin.prototype.enable = function() {
       displayName: 'Block of ' + ucfirst(name),
       hardness: baseHardness * self.storageHardnessFactor
     });
-
-    var baseMaterial = self.storageBases[name] || name;
 
     // blocking up TODO: require a compressor?
     recipes.registerAmorphous([
