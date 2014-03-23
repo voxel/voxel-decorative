@@ -1,0 +1,6 @@
+# voxel-decorative
+
+## License
+
+MIT
+
