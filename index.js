@@ -1,5 +1,7 @@
 'use strict';
 
+var ucfirst = require('ucfirst');
+
 module.exports = function(game, opts) {
   return new DecorativePlugin(game, opts);
 };
@@ -15,15 +17,32 @@ function DecorativePlugin(game, opts) {
   this.recipes = game.plugins.get('voxel-recipes');
   if (!this.recipes) throw new Error('voxel-decorative requires voxel-recipes');
 
+  this.storageMaterials = opts.storageMaterials || ['coal', 'iron', 'gold', 'diamond'];
+  this.storageBases = opts.storageBases || {iron: 'ingotIron', gold: 'ingotIron'}; // TODO: refactor, metals? (always require ingots)
+
   this.enable();
 }
 
 DecorativePlugin.prototype.enable = function() {
+  var registry = this.registry;
+  var recipes = this.recipes;
+  var self = this;
+
   // "storage" blocks
-  this.registry.registerBlock('blockCoal', {texture: 'coal_block', displayName: 'Block of Coal'});
-  this.registry.registerBlock('blockIron', {texture: 'iron_block', displayName: 'Block of Iron'});
-  this.registry.registerBlock('blockGold', {texture: 'gold_block', displayName: 'Block of Gold'});
-  this.registry.registerBlock('blockDiamond', {texture: 'diamond_block', displayName: 'Block of Diamond'});
+  this.storageMaterials.forEach(function(name) {
+    registry.registerBlock('block' + ucfirst(name), {texture: name + '_block', displayName: 'Block of ' + ucfirst(name)});
+
+    var baseMaterial = self.storageBases[name] || name;
+
+    // blocking up TODO: require a compressor?
+    recipes.registerAmorphous([
+      baseMaterial, baseMaterial, baseMaterial,
+      baseMaterial, baseMaterial, baseMaterial,
+      baseMaterial, baseMaterial, baseMaterial], ['block' + ucfirst(name)]);
+
+    // blocking down TODO: require a macerator?
+    recipes.registerAmorphous(['block' + ucfirst(name)], [baseMaterial, 9]);
+  });
 
   // stone bricks
   this.registry.registerBlock('stoneBrick', {texture: 'stonebrick', displayName: 'Stone Bricks'});
