@@ -40,7 +40,8 @@ DecorativePlugin.prototype.enable = function() {
     registry.registerBlock('block' + ucfirst(name), {
       texture: name + '_block',
       displayName: 'Block of ' + ucfirst(name),
-      hardness: baseHardness * self.storageHardnessFactor
+      hardness: baseHardness * self.storageHardnessFactor,
+      creativeTab: 'decorative'
     });
 
     // blocking up TODO: require a compressor?
@@ -56,10 +57,10 @@ DecorativePlugin.prototype.enable = function() {
 
   // stone bricks
   var hardness = registry.getProp('cobblestone', 'hardness') || 10.0; // match stone hardness
-  registry.registerBlock('stoneBrick', {texture: 'stonebrick', displayName: 'Stone Bricks', hardness: hardness});
-  registry.registerBlock('stoneBrickCarved', {texture: 'stonebrick_carved', displayName: 'Carved Stone Bricks', hardness: hardness});
-  registry.registerBlock('stoneBrickCracked', {texture: 'stonebrick_cracked', displayName: 'Cracked Stone Bricks', hardness: hardness});
-  registry.registerBlock('stoneBrickMossy', {texture: 'stonebrick_mossy', displayName: 'Mossy Stone Bricks', hardness: hardness});
+  registry.registerBlock('stoneBrick', {texture: 'stonebrick', displayName: 'Stone Bricks', hardness: hardness, creativeTab: 'decorative'});
+  registry.registerBlock('stoneBrickCarved', {texture: 'stonebrick_carved', displayName: 'Carved Stone Bricks', hardness: hardness, creativeTab: 'decorative'});
+  registry.registerBlock('stoneBrickCracked', {texture: 'stonebrick_cracked', displayName: 'Cracked Stone Bricks', hardness: hardness, creativeTab: 'decorative'});
+  registry.registerBlock('stoneBrickMossy', {texture: 'stonebrick_mossy', displayName: 'Mossy Stone Bricks', hardness: hardness, creativeTab: 'decorative'});
 
   recipes.registerPositional([
       ['stone', 'stone'],
