@@ -1,7 +1,7 @@
 {
   "name": "voxel-decorative",
   "description": "craftable decorative blocks (voxel.js plugin)",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "repository": {
     "type": "git",
     "url": "git@github.com:deathcap/voxel-decorative.git"
