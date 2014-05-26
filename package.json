@@ -2,14 +2,17 @@
   "name": "voxel-decorative",
   "description": "craftable decorative blocks (voxel.js plugin)",
   "version": "0.1.0",
+  "main": "decorative.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:deathcap/voxel-decorative.git"
   },
   "keywords": [
     "voxel",
+    "plugin",
     "stone",
-    "blocks"
+    "blocks",
+    "decoration"
   ],
   "dependencies": {
     "ucfirst": "0.0.1"
